@@ -1,0 +1,17 @@
+html body {
+    height: 100%;
+    background-color: #f4f5f5;
+}
+body,
+ul,
+li,
+h1 {
+    margin: 0;
+}
+ul,
+input {
+    padding: 0;
+}
+li {
+    list-style: none;
+}
