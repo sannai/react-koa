@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createLogger } from 'redux-logger'
 import { createBrowserHistory } from 'history'
-import { rootReducer } from './redux'
+import { rootEpic, rootReducer } from './redux'
 import { createEpicMiddleware } from 'redux-observable'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { ConnectedRouter, routerMiddleware } from 'connected-react-router'
@@ -22,6 +22,7 @@ function configureStore() {
         rootReducer(history),
         composeEnhancers(applyMiddleware(routerMiddleware(history), epicMiddleware, loggerMiddleware))
     )
+    epicMiddleware.run(rootEpic)
     return store
 }
 

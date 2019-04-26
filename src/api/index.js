@@ -1,12 +1,15 @@
 import axios from 'axios'
+// const qs = require('qs')
 
 export const instance = axios.create({
-    baseURL: 'http://192.168.0.10:8084',
+    baseURL: 'https://api.zzp96.cn/',
 })
 
 const request = {
-    get: async url => {
-        const res = await instance.get(url)
+    get: async (url, data) => {
+        const res = await instance.get(url, {
+            params: data,
+        })
         return res.data
     },
     post: async (url, data) => {
@@ -24,7 +27,7 @@ const request = {
 }
 
 const auth = {
-    login: data => request.post('/login', data),
+    HomeList: data => request.get('/main/list', data),
     getCaptcha: () => request.get('/captchas/base64'),
 }
 

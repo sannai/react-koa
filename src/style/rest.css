@@ -1,18 +1,22 @@
 html body {
-	height: 100%;
-	background-color: #f4f5f5;
+    height: 100%;
+    background-color: #f4f5f5;
 }
 body,
 ul,
 li,
 h1,
+h2,
 p {
-	margin: 0;
+    margin: 0;
+}
+a {
+    text-decoration: none;
 }
 ul,
 input {
-	padding: 0;
+    padding: 0;
 }
 li {
-	list-style: none;
+    list-style: none;
 }
