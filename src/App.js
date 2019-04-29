@@ -1,17 +1,21 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
-import Header from './components/Header'
-import Home from './pages/Home'
-import Message from './pages/Message'
-import '../src/style/rest.css'
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Detail from "./components/Detail";
+import Home from "./pages/Home";
+import Message from "./pages/Message";
+import "../src/style/rest.css";
 function App() {
-    return (
-        <div className='App'>
-            <Header />
-            <Route exact path='/' component={Home} />
-            <Route path='/message' component={Message} />
-        </div>
-    )
+	return (
+		<>
+			<Header />
+			<Switch>
+				<Route path='/detail/:id' component={Detail} />
+				<Route path='/message' component={Message} />
+				<Route exact path='/' component={Home} />
+			</Switch>
+		</>
+	);
 }
 
-export default App
+export default App;

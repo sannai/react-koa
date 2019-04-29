@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions } from "../redux";
+import { Link } from "react-router-dom";
 
 const Container = styled.main`
 	width: 100%;
@@ -51,38 +52,38 @@ function Home(props) {
 			props.homeList(data);
 		}
 	}, [props]);
-	const handleClickJumpRoute = item => {
-		console.log(item);
-	};
 	return (
 		<Container>
 			<MyUl>
 				{props.homeListData.data &&
 					props.homeListData.data.map(item => (
-						<MyLi
-							key={item._id}
-							onClick={handleClickJumpRoute(item)}
-						>
-							<h2>{item.title}</h2>
-							<MyAnalysiHtml
-								dangerouslySetInnerHTML={{
-									__html: item.introduction,
+						<MyLi key={item._id}>
+							<Link
+								to={{
+									pathname: "/detail/" + item._id,
 								}}
-							/>
-							<MyAction>
-								<MyTime>
-									<i className='iconfont icon-riqi' />
-									{item.createDate.slice(0, 10)}
-								</MyTime>
-								<MyComment>
-									<i className='iconfont icon-liuyan' />
-									{item.commentNumber}
-								</MyComment>
-								{/* <span>
+							>
+								<h2>{item.title}</h2>
+								<MyAnalysiHtml
+									dangerouslySetInnerHTML={{
+										__html: item.introduction,
+									}}
+								/>
+								<MyAction>
+									<MyTime>
+										<i className='iconfont icon-riqi' />
+										{item.createDate.slice(0, 10)}
+									</MyTime>
+									<MyComment>
+										<i className='iconfont icon-liuyan' />
+										{item.commentNumber}
+									</MyComment>
+									{/* <span>
 									<i className='iconfont icon-yuedu' />
 									{item.readNumber}
 								</span> */}
-							</MyAction>
+								</MyAction>
+							</Link>
 						</MyLi>
 					))}
 			</MyUl>
