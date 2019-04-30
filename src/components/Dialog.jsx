@@ -1,23 +1,23 @@
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-const layshow = keyframes`
-    0% {
-        transform: scale(.5,.5);
-    }
-    50% {
-        transform: scale(1,1);
-    }
-`
-const layhide = keyframes`
-    50% {
-        transform: scale(1,1);
-    }
-    100% {
-        transform: scale(0,0);
-    }
-`
+// const layshow = keyframes`
+//     0% {
+//         transform: scale(.5,.5);
+//     }
+//     50% {
+//         transform: scale(1,1);
+//     }
+// `
+// const layhide = keyframes`
+//     50% {
+//         transform: scale(1,1);
+//     }
+//     100% {
+//         transform: scale(0,0);
+//     }
+// `
 const Container = styled.div`
     width: 100%;
     background-color: rgba(26, 26, 26, 0.65);
@@ -27,12 +27,14 @@ const Container = styled.div`
     bottom: 0;
     left: 0;
     z-index: 1;
-    display: ${props => ((props.isMenu === true) | (props.isMenu === false) ? 'block' : 'none')};
-    animation: ${props => (props.isMenu ? layshow : layhide)} 0.5s both;
+    opacity: ${props => (props.active ? '1' : '0')};
+    transition: opacity 0.2s linear;
 `
 const MyExpand = styled.div`
     background-color: #fff;
     transition: height 0.2s cubic-bezier(0, 0, 0.2, 1);
+    height: ${props => (props.active ? '200px' : '0px')};
+    overflow: hidden;
     a {
         width: 100%;
         height: 10vw;
@@ -87,9 +89,17 @@ function Dialog(props) {
         bodyEl.style.top = ''
         window.scrollTo(0, top) // 回到原先的top
     }
+    const [active, setActive] = useState(false)
+    useEffect(() => {
+        if (props.menuActive && !active) {
+            setActive(true)
+        } else if (!props.menuActive && active) {
+            setActive(false)
+        }
+    }, [props.menuActive])
     return (
-        <Container isMenu={props.isMenu}>
-            <MyExpand>
+        <Container active={active}>
+            <MyExpand active={active}>
                 {menuList.map(item => (
                     <Link to={item.routerLink} onClick={props.onClick} key={item.index}>
                         <i className={item.cls} />
