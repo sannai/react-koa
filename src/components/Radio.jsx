@@ -1,67 +1,72 @@
 import React from "react";
 import styled from "styled-components";
 
-const MyLabel = styled.label`
-	width: 100px;
+const Container = styled.div`
+	width: 100%;
 	position: relative;
-	::before,
-	::after {
-		content: "";
+	input:checked + label::after {
+		background-color: #1890ff;
+	}
+`;
+const MyInput = styled.input`
+	display: none;
+`;
+const MyLabel = styled.label`
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	position: relative;
+`;
+const MyLabel1 = styled.label`
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	&::after {
+		box-sizing: border-box;
+		transition: all 0.5s ease;
 		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
+		width: 16px;
+		height: 16px;
 		border-radius: 50%;
+		left: 8px;
+		z-index: 1;
+		content: "";
 	}
-	::before {
-		width: 5vw;
-		height: 5vw;
-		border: 1px solid red;
-	}
-	&:hover::after {
-	}
-
-	input:checked + ::after {
-		opacity: 1;
-		box-shadow: 0 0 15px -1px #79eac5;
-	}
-	input {
-		opacity: 0;
+`;
+const MyI = styled.i`
+	display: flex;
+	border: 1px solid #d9d9d9;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	cursor: pointer;
+	:active {
+		border-color: red;
 	}
 `;
 const MySpan = styled.span``;
-const MyI = styled.span`
-	display: inline-block;
-	position: absolute;
-	width: 3vw;
-	height: 3vw;
-	background: red;
-	top: 4px;
-	left: 5px;
-	opacity: 1;
-	border-radius: 50%;
-	transition: 0.2s;
-`;
 
 function Radio(props) {
 	return (
-		<>
+		<Container>
 			{props.options.map(item => (
 				<MyLabel key={item.id} onClick={props.onChang}>
-					<input
+					<MyInput
 						type='radio'
 						name={item.name}
 						value={item.value}
+						id={item.radioId}
 						defaultChecked={
 							props.value === item.value ? "checked" : ""
 						}
 					/>
-					{props.value === item.value && <MyI />}
-
-					<MySpan>{item.label}</MySpan>
+					<MyLabel1 for={item.radioId}>
+						<MyI />
+						<MySpan>{item.label}</MySpan>
+					</MyLabel1>
 				</MyLabel>
 			))}
-		</>
+		</Container>
 	);
 }
 
