@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useImperativeHandle } from "react";
 import styled from "styled-components";
-import Radio from "../components/Radio";
+import Button from "../components/Button";
+import Tag from "../components/Tag";
 
 const Container = styled.div`
 	margin-top: 14vw;
@@ -9,7 +10,6 @@ const Container = styled.div`
 `;
 
 function Message() {
-	const [value, setValue] = useState(1);
 	const [options, setOptions] = useState([
 		{
 			id: 1,
@@ -18,6 +18,8 @@ function Message() {
 			name: "fruit",
 			value: "0",
 			radioId: "radioId1",
+			type: "text",
+			disabled: true,
 		},
 		{
 			id: 2,
@@ -26,6 +28,9 @@ function Message() {
 			name: "fruit",
 			value: "1",
 			radioId: "radioId2",
+			type: "number",
+			disabled: false,
+			icon: "fas fa-angle-double-left",
 		},
 		{
 			id: 3,
@@ -34,59 +39,72 @@ function Message() {
 			name: "fruit",
 			value: "2",
 			radioId: "radioId3",
+			type: "number",
+			disabled: false,
+			icon: "fas fa-angle-double-right",
 		},
 	]);
 
-	const handleChangeRadio = event => {
-		const value = event.target.value;
-		setTimeout(() => {
-			setValue(value);
-		}, 200);
-		// setValue(event.target.value);
+	const handleClick = (event, item, index) => {
+		console.log(event, item, index);
 	};
-	const handleChangeInput = (event, value) => {
-		// let option = options.map(item => {
-		// 	if (item.radioId === value.radioId) {
-		// 		item.value = event.target.value;
-		// 	}
-		// 	return item;
-		// });
-		// setOptions(option);
-		setOptions(state => {
-			return state.map(item => {
-				if (item.radioId === value.radioId) {
-					item.value = event.target.value;
-				}
-				return item;
-			});
-		});
-		// let option = options.map(item => {
-		// 	if (item.radioId === value.radioId) {
-		// 		item.value = event.target.value;
-		// 	}
-		// 	return item;
-		// });
-		// setOptions(option);
-		// console.log(option, event.target.value, value);
+	const optionStyle = {
+		height: "32px",
+		color: "#fff",
+		bgColor: "#F27A59",
+		borderColor: "#F27A59",
+		family: "MicrosoftYaHei",
+		weight: "Regular",
+		size: "14px",
+		cursor: "pointer",
+		Hcolor: "#fff",
+		HbgColor: "#F27A59",
+		HborderColor: "#F27A59",
 	};
-	console.log(options);
-
 	return (
 		<Container>
-			{/* <Radio
-				options={options}
-				onChang={handleChangeRadio}
-				value={Number(value)}
-			/> */}
-			{options.map(item => (
-				<div key={item.id}>
-					<input
-						type='text'
-						value={item.value}
-						onChange={() => handleChangeInput(event, item)}
-					/>
-				</div>
+			{options.map((item, index) => (
+				<Button
+					optionStyle={optionStyle}
+					icon={item.icon}
+					disabled={item.disabled}
+					onClick={event => handleClick(event, item, index)}
+					key={item.id}
+				>
+					{item.label}
+				</Button>
 			))}
+			<Button
+				icon={"fas fa-angle-double-right"}
+				onClick={event => handleClick(event, "添加", 0)}
+			>
+				添加
+			</Button>
+			<Button
+				disabled={true}
+				onClick={event => handleClick(event, "取消", 1)}
+			>
+				取消
+			</Button>
+			{options.map((item, index) => (
+				<Button
+					icon={item.icon}
+					disabled={item.disabled}
+					onClick={event => handleClick(event, item, index)}
+					key={item.id}
+				>
+					{item.label}
+				</Button>
+			))}
+			<Tag onClose={event => handleClick(event, "我是标签", 1)}>
+				Tag666
+			</Tag>
+			<Tag
+				icon={"fas fa-angle-double-right"}
+				onClose={event => handleClick(event, "我是tag", 1)}
+			>
+				Tag666
+			</Tag>
 		</Container>
 	);
 }
