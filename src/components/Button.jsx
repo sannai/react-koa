@@ -1,4 +1,9 @@
-import React, { useState, useRef, useImperativeHandle } from "react";
+import React, {
+	useState,
+	useRef,
+	useImperativeHandle,
+	forwardRef,
+} from "react";
 import styled from "styled-components";
 
 const MyButton = styled.button`
@@ -63,12 +68,13 @@ const MyButton = styled.button`
 const MySpan = styled.span`
 	margin-left: 8px;
 `;
-function Button(props) {
-	console.log(props.optionStyle);
+function Button(props, ref) {
+	console.log(props.optionStyle, ref, 6);
 	return (
 		<MyButton
 			optionStyle={props.optionStyle}
 			type='button'
+			ref={ref}
 			disabled={props.disabled}
 			onClick={props.onClick}
 		>
@@ -78,4 +84,4 @@ function Button(props) {
 	);
 }
 
-export default Button;
+export default forwardRef(Button);

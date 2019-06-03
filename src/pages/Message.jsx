@@ -1,4 +1,9 @@
-import React, { useState, useRef, useImperativeHandle } from "react";
+import React, {
+	useState,
+	useRef,
+	useImperativeHandle,
+	forwardedRef,
+} from "react";
 import styled from "styled-components";
 import Button from "../components/Button";
 import Tag from "../components/Tag";
@@ -44,9 +49,9 @@ function Message() {
 			icon: "fas fa-angle-double-right",
 		},
 	]);
-
+	const buttonRef = useRef(null);
 	const handleClick = (event, item, index) => {
-		console.log(event, item, index);
+		console.log(event, item, index, buttonRef.current);
 	};
 	const optionStyle = {
 		height: "32px",
@@ -75,8 +80,9 @@ function Message() {
 				</Button>
 			))}
 			<Button
+				ref={buttonRef}
 				icon={"fas fa-angle-double-right"}
-				onClick={event => handleClick(event, "添加", 0)}
+				onClick={event => handleClick(event, "添加", 60)}
 			>
 				添加
 			</Button>
