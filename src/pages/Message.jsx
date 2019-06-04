@@ -7,6 +7,7 @@ import React, {
 import styled from "styled-components";
 import Button from "../components/Button";
 import Tag from "../components/Tag";
+import Input from "../components/Input";
 
 const Container = styled.div`
 	margin-top: 14vw;
@@ -49,10 +50,27 @@ function Message() {
 			icon: "fas fa-angle-double-right",
 		},
 	]);
+	const [inputData, setInputData] = useState({
+		fruit: "fruit",
+		radioId: "radioId",
+	});
 	const buttonRef = useRef(null);
 	const handleClick = (event, item, index) => {
 		console.log(event, item, index, buttonRef.current);
 	};
+	const handleChange = (event, name) => {
+		console.log(event.target.value, name, 66);
+		const val = event.target.value;
+		// setInputData(state => ({
+		// 	...state,
+		// 	[name]: val,
+		// }));
+		setInputData({
+			...inputData,
+			[name]: event.target.value,
+		});
+	};
+	console.log(inputData, 666);
 	const optionStyle = {
 		height: "32px",
 		color: "#fff",
@@ -111,6 +129,21 @@ function Message() {
 			>
 				Tag666
 			</Tag>
+			<Input
+				value={inputData.fruit}
+				onChange={event => handleChange(event, "fruit")}
+			/>
+			<Input
+				value={inputData.radioId}
+				onChange={event => handleChange(event, "radioId")}
+			/>
+			{/* {options.map((item, index) => (
+				<Input
+					key={item.id}
+					value={item.label}
+					onChange={event => handleChange(event, item.radioId)}
+				/>
+			))} */}
 		</Container>
 	);
 }

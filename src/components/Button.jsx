@@ -69,7 +69,6 @@ const MySpan = styled.span`
 	margin-left: 8px;
 `;
 function Button(props, ref) {
-	console.log(props.optionStyle, ref, 6);
 	return (
 		<MyButton
 			optionStyle={props.optionStyle}
