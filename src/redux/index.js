@@ -1,17 +1,17 @@
-import { combineEpics } from 'redux-observable'
-import { combineReducers } from 'redux'
-import { connectRouter } from 'connected-react-router'
+import { combineEpics } from "redux-observable";
+import { combineReducers } from "redux";
+import { connectRouter } from "connected-react-router";
 
-import home, { homeEpic, homeActions } from './home'
+import article, { articleEpic, articleActions } from "./article";
 
-export const rootEpic = combineEpics(homeEpic)
+export const rootEpic = combineEpics(articleEpic);
 
 export const actions = {
-    home: homeActions,
-}
+    article: articleActions,
+};
 
 export const rootReducer = history =>
     combineReducers({
         router: connectRouter(history),
-        home,
-    })
+        article,
+    });
