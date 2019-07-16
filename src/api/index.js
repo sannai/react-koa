@@ -28,7 +28,8 @@ const request = {
 
 const article = {
     getArticleList: data => request.get("/article/list", data),
-    getArticleDetail: id => request.get(`main/article-detail/${id}`),
+    getArticleDetail: id => request.get(`/article/${id}`),
+    getArticleComment: id => request.get(`/article/comment/${id}`),
 };
 
 export default {

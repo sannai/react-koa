@@ -97,7 +97,7 @@ const articleReducer = handleActions(
     {
         isgetArticleList: false,
         isgetArticleListReady: false,
-        getArticleListData: [],
+        getArticleListData: {},
         isgetArticleDetail: false,
         isgetArticleDetailReady: false,
         getArticleDetailData: {},

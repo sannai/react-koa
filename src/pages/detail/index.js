@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions } from "../../redux";
 import { Link } from "react-router-dom";
-import DetailBlock from "./DetailBlock";
 
 const Container = styled.main`
     padding-top: 12vw;
@@ -12,25 +11,22 @@ const Container = styled.main`
     height: calc(100% - 12vw);
 `;
 
-function Main(props) {
+function Detail(props) {
     const [shouldFetchData, setShouldFetchData] = useState(true);
     useEffect(() => {
         if (shouldFetchData) {
             setShouldFetchData(false);
-            let data = {
-                page: 1,
-                limit: 10,
-            };
-            props.getArticleList(data);
+
+            props.getArticleDetail(props.match.params.id);
         }
     }, [shouldFetchData]);
-    console.log(props.getArticleListData);
+    console.log(props);
     return (
         <Container>
             {props.getArticleListData.data &&
                 props.getArticleListData.data.map((item, index) => (
                     <Link to={"/article/" + item._id} key={index}>
-                        <DetailBlock {...item} />
+                        666
                     </Link>
                 ))}
         </Container>
@@ -39,9 +35,10 @@ function Main(props) {
 const mapStateToProps = state => {
     return state.article;
 };
-const mapDispatchToProps = dispatch => bindActionCreators(actions.article, dispatch);
+const mapDispatchToProps = dispatch =>
+    bindActionCreators({ getArticleDetail: actions.article.getArticleDetail }, dispatch);
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Main);
+)(Detail);
